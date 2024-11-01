@@ -17,10 +17,6 @@ A real-time group chat application built with React, Firebase, and Material-UI. 
 - **Firebase**: For authentication, real-time database, and storage.
 - **Material-UI**: For the design components and styling.
 
-## Screenshots
-
-![Chat Interface](screenshots/chat_interface.png)
-
 ## Getting Started
 
 Follow these instructions to set up and run the project locally.
