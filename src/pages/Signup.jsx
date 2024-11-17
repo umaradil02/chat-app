@@ -45,9 +45,9 @@ function signup() {
               type="text"
               name="firstName"
               placeholder="First Name"
-              id="emaill"
               value={formdata.firstName}
               onChange={handlingchange}
+              autoComplete="off"
             />
           </div>
           <div className="field">
@@ -56,9 +56,9 @@ function signup() {
               type="text"
               name="lastname"
               placeholder="Last name"
-              id="emaill"
               value={formdata.lastname}
               onChange={handlingchange}
+              autoComplete="off"
             />
           </div>
           <div className="field">
@@ -67,9 +67,9 @@ function signup() {
               type="text"
               name="email"
               placeholder="Email or Phone"
-              id="emaill"
               value={formdata.email}
               onChange={handlingchange}
+              autoComplete="off"
             />
           </div>
           <div className="field">
@@ -78,9 +78,9 @@ function signup() {
               type="password"
               name="password"
               placeholder="Password"
-              id="passwordl"
               value={formdata.password}
               onChange={handlingchange}
+              autoComplete="off"
             />
           </div>
           <a href="#" id="forgot">

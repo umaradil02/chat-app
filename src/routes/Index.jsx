@@ -6,7 +6,7 @@ import {
   Routes,
 } from "react-router-dom";
 import { Logincheker, Routeprotected } from "../component/ContextCheker";
-import Signup from "../pages/signup";
+import Signup from "../pages/Signup";
 import Login from "../pages/Login";
 import About from "./About";
 import Contact from "./Contact";

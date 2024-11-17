@@ -32,9 +32,9 @@ const LOGIN = () => {
             <input
               type="text"
               placeholder="Email or Phone"
-              id="emaill"
               value={email}
               onChange={(e) => setemail(e.target.value)}
+              autoComplete="off"
             />
           </div>
           <div className="field">
@@ -42,9 +42,9 @@ const LOGIN = () => {
             <input
               type="password"
               placeholder="Password"
-              id="passwordl"
               value={password}
               onChange={(e) => setpassword(e.target.value)}
+              autoComplete="off"
             />
           </div>
           <a href="#" id="forgot">

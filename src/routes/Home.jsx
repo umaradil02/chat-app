@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import {
   Box,
   AppBar,
@@ -30,10 +31,11 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../pages/confic";
-import { Authcontext } from "../context/Authcontext";
+// import { Authcontext } from "../context/Authcontext";
 
 const Home = () => {
-  const { loginuser, loadinguser } = useContext(Authcontext);
+  // const { loginuser, loadinguser } = useContext(Authcontext);
+  const { loginuser, loadinguser } = useSelector((state) => state.auth);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [editMessageId, setEditMessageId] = useState(null);
@@ -64,6 +66,18 @@ const Home = () => {
               prev.filter((msg) => msg.id !== change.doc.id)
             );
           }
+          if (change.type === "modified") {
+            setMessages((prev) => {
+              const totalmesge = [...prev];
+              const index = totalmesge.findIndex((m) => m.id === change.doc.id);
+              totalmesge[index] = {
+                ...change.doc.data(),
+                id: change.doc.id,
+                user: userRef.current[change.doc.data().sendBy],
+              };
+              return totalmesge;
+            });
+          }
         });
       });
       return () => unsubscribe();
@@ -88,7 +102,10 @@ const Home = () => {
   };
 
   const deleteMessage = async (messageId) => {
-    await deleteDoc(doc(db, "messages", messageId));
+    const docref = doc(db, "messages", messageId);
+    await updateDoc(docref, {
+      isDeleted: true,
+    });
   };
 
   const editMessage = (msg) => {
@@ -155,7 +172,11 @@ const Home = () => {
                     <Tooltip
                       title={`${data.user.firstName} ${data.user.lastname}`}
                     >
-                      <Typography variant="body1">{data.text}</Typography>
+                      <Typography variant="body1">
+                        {data?.isDeleted
+                          ? "this message is deleted"
+                          : data.text}
+                      </Typography>
                     </Tooltip>
                   </Box>
                 </ListItem>
@@ -173,7 +194,11 @@ const Home = () => {
                     }}
                   >
                     <Tooltip title="You">
-                      <Typography variant="body1">{data.text}</Typography>
+                      <Typography variant="body1">
+                        {data?.isDeleted
+                          ? "this message is deleted"
+                          : data.text}
+                      </Typography>
                     </Tooltip>
                   </Box>
                   {data.sendBy === loginuser.uid && (
